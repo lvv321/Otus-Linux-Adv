@@ -1,0 +1,21 @@
+---
+# tasks file for nginx_server
+
+- name: Install NGINX from standard repo
+  ansible.builtin.apt:
+    name: nginx
+    state: latest
+  notify:
+    - restart nginx
+  tags:
+    - packages
+    - nginx-package
+
+- name: Create NGINX config file from template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - reload nginx
+  tags:
+    - nginx-configuration
