@@ -96,7 +96,6 @@ then
 fi
 
 
-
 echo "remove the contents of /tmp and /var/tmp"
 rm -rf /tmp/* /var/tmp/*
 
