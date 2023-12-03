@@ -1,0 +1,89 @@
+Script started on 2023-12-03 18:51:20+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ lsblk
+[?2004lNAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0  63.4M  1 loop /snap/core20/1974
+loop1                       7:1    0  53.3M  1 loop /snap/snapd/19457
+loop2                       7:2    0 111.9M  1 loop /snap/lxd/24322
+loop3                       7:3    0  40.9M  1 loop /snap/snapd/20290
+loop4                       7:4    0  63.5M  1 loop /snap/core20/2015
+sda                         8:0    0  14.6G  0 disk 
+├─sda1                      8:1    0     1M  0 part 
+├─sda2                      8:2    0   1.8G  0 part /boot
+└─sda3                      8:3    0  12.9G  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:1    0     8G  0 lvm  /
+sdb                         8:16   0    10G  0 disk 
+sdc                         8:32   0     2G  0 disk 
+sdd                         8:48   0     1G  0 disk 
+sde                         8:64   0     1G  0 disk 
+sr0                        11:0    1  1024M  0 rom  
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo pvcreate /dev/sd{d.[K,e}
+[?2004l  Physical volume "/dev/sdd" successfully created.
+  Physical volume "/dev/sde" successfully created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo vgcreate vg[K[Kvar-vg [7m/dev/sd{d,e}[27m/dev/sd{d,e}
+[?2004l  Volume group "var-vg" successfully created
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvcret[Kate -L 1G -m1 -n var-lv var-vg
+[?2004l  Insufficient free space: 514 extents needed, but only 510 available
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvcreate -L 1G -m1 -n var-lv var-vg[1P[1@9[1@5[1@0[1P[1@M
+[?2004l  Rounding up size to full physical extent 952.00 MiB
+  Logical volume "var-lv" created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mkfs.ext4 /dev/var[Kr-vg/val-lg
+[?2004lmke2fs 1.46.5 (30-Dec-2021)
+The file /dev/var-vg/val-lg does not exist and no size was specified.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mkfs.ext4 /dev/var-vg/val-lg[1P-lgr-lg
+[?2004lmke2fs 1.46.5 (30-Dec-2021)
+The file /dev/var-vg/var-lg does not exist and no size was specified.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mkfs.ext4 /dev/var-vg/var-lg[7m/dev/var-vg/var-lv[27m[1P/dev/var-vg/var-l[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kv
+[?2004lmke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 243712 4k blocks and 60928 inodes
+Filesystem UUID: ecca50dd-ce10-4963-b55c-de8d81018971
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: 0/8   done                            
+Writing inode tables: 0/8   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/8   done
+
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ mount /dev/vga_arbiter [K[K[K[K[K[K[K[K[K[K[K[Kvar-vg/var-lv /mnt
+[?2004lmount: /mnt: must be superuser to use mount.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ mount /dev/var-vg/var-lv /mnt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cp -aR /var/* /mnt/
+[?2004lcp: cannot create directory '/mnt/backups': Permission denied
+cp: cannot create directory '/mnt/cache': Permission denied
+cp: cannot create directory '/mnt/crash': Permission denied
+cp: cannot create directory '/mnt/lib': Permission denied
+cp: cannot create directory '/mnt/local': Permission denied
+cp: cannot create symbolic link '/mnt/lock': Permission denied
+cp: cannot create directory '/mnt/log': Permission denied
+cp: cannot create directory '/mnt/mail': Permission denied
+cp: cannot create directory '/mnt/opt': Permission denied
+cp: cannot create symbolic link '/mnt/run': Permission denied
+cp: cannot create directory '/mnt/snap': Permission denied
+cp: cannot create directory '/mnt/spool': Permission denied
+cp: cannot create directory '/mnt/tmp': Permission denied
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cp -aR /var/* /mnt/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo rm[K[K[K[K[K[K[Kls /mnt/
+[?2004l[0m[01;34mbackups[0m  [30;42mcrash[0m  [01;34mlocal[0m  [01;34mlog[0m         [01;34mmail[0m  [01;36mrun[0m   [01;34mspool[0m
+[01;34mcache[0m    [01;34mlib[0m    [01;36mlock[0m   [01;34mlost+found[0m  [01;34mopt[0m   [01;34msnap[0m  [30;42mtmp[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ rm /var/*[1P[1P /var/*[1P/var/*[1Pvar/*[1Par/*[1Pr/*[1P/*[1P*[Kls /var/
+[?2004l[0m[01;34mbackups[0m  [01;34mcache[0m  [30;42mcrash[0m  [01;34mlib[0m  [01;34mlocal[0m  [01;36mlock[0m  [01;34mlog[0m  [01;34mmail[0m  [01;34mopt[0m  [01;36mrun[0m  [01;34msnap[0m  [01;34mspool[0m  [30;42mtmp[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /var/[K[K[K[K[K[K[K[Kmskdir[K[K[K[K[Kkdir /tmo[Kp/oldvar 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ mv /car^?[K[K[K[Kvar/*[1@s[1@u[1@d[1@o[1@ [C[C[C[C[C[C[C[C[C /tmp/oldvar/
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mv /var/* /tmp/oldvar/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Pmkdir /tmp/oldvar [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pls /var/
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /var/sudo mv /var/* /tmp/oldvar/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Pmkdir /tmp/oldvar [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kls tm[Kypescript [K[K[K[K[K[K[K[K[K[K[K[K[K[Kls /tmp/oldvar/
+[?2004l[0m[01;34mbackups[0m  [01;34mcache[0m  [30;42mcrash[0m  [01;34mlib[0m  [01;34mlocal[0m  [01;36mlock[0m  [01;34mlog[0m  [01;34mmail[0m  [01;34mopt[0m  [01;36mrun[0m  [01;34msnap[0m  [01;34mspool[0m  [30;42mtmp[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ umoi[Ki[Kunt /mnt
+[?2004lumount: /mnt: must be superuser to unmount.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ umount /mnt[1@s[C[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mi[Kount /frv/v[K[K[K[K[Kdev/var-vg/var-lv /var
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /var
+[?2004l[0m[01;34mbackups[0m  [30;42mcrash[0m  [01;34mlocal[0m  [01;34mlog[0m         [01;34mmail[0m  [01;36mrun[0m   [01;34mspool[0m
+[01;34mcache[0m    [01;34mlib[0m    [01;36mlock[0m   [01;34mlost+found[0m  [01;34mopt[0m   [01;34msnap[0m  [30;42mtmp[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [7mecho "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 [27m[7md[27m[7mefaults 0 0"[27m[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ echo "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 defaults 0 0" | [7m| sudo tee -a[27m| sudo tee -a[1P[1P[Acho "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 de[1P[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ho "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 def[1P[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ o "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 defa[1P[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$  "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 defau[1P[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [C[Csudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 defaul[1P[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C^C
+[?2004l[?2004h[?2004l
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [7mecho "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 [27m[7md[27m[7mefaults 0 0" | sudo tee -a /etc/fstab[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "`sudo blkid | grep var--lv: | awk '{print $2}'` /var ext4 defaults 0 0" | sudo tee -a /etc/fstab
+[?2004lUUID="ecca50dd-ce10-4963-b55c-de8d81018971" /var ext4 defaults 0 0
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2023-12-03 19:30:21+00:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,145 @@
+Script started on 2023-12-03 19:34:32+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ lsblk
+[?2004lNAME                       MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                        7:0    0  63.4M  1 loop /snap/core20/1974
+loop1                        7:1    0  63.5M  1 loop /snap/core20/2015
+loop2                        7:2    0 111.9M  1 loop /snap/lxd/24322
+loop3                        7:3    0  53.3M  1 loop /snap/snapd/19457
+loop4                        7:4    0  40.9M  1 loop /snap/snapd/20290
+sda                          8:0    0  14.6G  0 disk 
+├─sda1                       8:1    0     1M  0 part 
+├─sda2                       8:2    0   1.8G  0 part /boot
+└─sda3                       8:3    0  12.9G  0 part 
+  └─ubuntu--vg-ubuntu--lv  253:0    0     8G  0 lvm  /
+sdb                          8:16   0    10G  0 disk 
+sdc                          8:32   0     2G  0 disk 
+sdd                          8:48   0     1G  0 disk 
+├─var--vg-var--lv_rmeta_0  253:1    0     4M  0 lvm  
+│ └─var--vg-var--lv        253:5    0   952M  0 lvm  /var
+└─var--vg-var--lv_rimage_0 253:2    0   952M  0 lvm  
+  └─var--vg-var--lv        253:5    0   952M  0 lvm  /var
+sde                          8:64   0     1G  0 disk 
+├─var--vg-var--lv_rmeta_1  253:3    0     4M  0 lvm  
+│ └─var--vg-var--lv        253:5    0   952M  0 lvm  /var
+└─var--vg-var--lv_rimage_1 253:4    0   952M  0 lvm  
+  └─var--vg-var--lv        253:5    0   952M  0 lvm  /var
+sr0                         11:0    1  1024M  0 rom  
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ pvcreaT[K[K[K[K[K[K[KSUDO PVCREATE[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo pvkreate[1Preatecreate[C[C[C[C[C /dev/sd{b,c}
+[?2004l  Physical volume "/dev/sdb" successfully created.
+  Physical volume "/dev/sdc" successfully created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo vgcreate home-vg
+[?2004l  No command with matching syntax recognised.  Run 'vgcreate --help' for more information.
+  Correct command syntax is:
+  vgcreate VG_new PV ...
+
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo vgcreate home-vg [7m/dev/sd{b,c}[27m/dev/sd{b,c}
+[?2004l  Volume group "home-vg" successfully created
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ lv[K[Ksudo lvcreate -n home-lv -L 5G home-vg
+[?2004lWARNING: ext4 signature detected on /dev/home-vg/home-lv at offset 1080. Wipe it? [y/n]: y
+  Wiping ext4 signature on /dev/home-vg/home-lv.
+  Logical volume "home-lv" created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ mkds[K[Kfs.smkfs.umkfs.dmkfs.omkfs. mkfs.[C[C[C[C[Cext4 /dev/home-vg/home-lv 
+[?2004lmke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 1310720 4k blocks and 327680 inodes
+Filesystem UUID: 92497a9b-e0dd-41f1-b315-3286ee64f371
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+Allocating group tables:  0/40     done                            
+Writing inode tables:  0/40     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/40     done
+
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mkfs.ext4 /dev/home-vg/home-lv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@m[1@o[1@u[1@n[1@t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/mnt/
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$  [Kcp[K[Ksudo cp -Ar[K[KaR /home/* /mnt/
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /mnt/
+[?2004l[0m[01;34mlost+found[0m  [01;34mvagrant[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /var/[K[K[K[Khome/vagrant/1/typescript [K[K[K[K[K[K[K[K[K[K[K[K[K
+[?2004l[0m[01;34m1[0m  [01;34m2[0m  VBoxGuestAdditions.iso  typescript
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ mkdir /tmp/oldhome
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mv /home/* /n[Kym[K[Ktmp/h[Koldhome/[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ktouch /home/file{1..20}
+[?2004ltouch: cannot touch '/home/file1': Permission denied
+touch: cannot touch '/home/file2': Permission denied
+touch: cannot touch '/home/file3': Permission denied
+touch: cannot touch '/home/file4': Permission denied
+touch: cannot touch '/home/file5': Permission denied
+touch: cannot touch '/home/file6': Permission denied
+touch: cannot touch '/home/file7': Permission denied
+touch: cannot touch '/home/file8': Permission denied
+touch: cannot touch '/home/file9': Permission denied
+touch: cannot touch '/home/file10': Permission denied
+touch: cannot touch '/home/file11': Permission denied
+touch: cannot touch '/home/file12': Permission denied
+touch: cannot touch '/home/file13': Permission denied
+touch: cannot touch '/home/file14': Permission denied
+touch: cannot touch '/home/file15': Permission denied
+touch: cannot touch '/home/file16': Permission denied
+touch: cannot touch '/home/file17': Permission denied
+touch: cannot touch '/home/file18': Permission denied
+touch: cannot touch '/home/file19': Permission denied
+touch: cannot touch '/home/file20': Permission denied
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ touch /home/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /home/
+[?2004lfile1   file12  file15  file18  file20  file5  file8
+file10  file13  file16  file19  file3   file6  file9
+file11  file14  file17  file2   file4   file7  [0m[01;34mvagrant[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ lvcreate s /home/sudo touch /home/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pmkdir /tmp/oldhome[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pls /home/vagrant/mnt/[K[17@sudo cp -aR /home/*[C[C[C[C[C[C[12@mount /dev/home-vg/home-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pkfs.ext4 /dev/home-vg/home-lv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvcreate -n home-lv -L 5G home-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@-[1@s[1@n[1@a[1@p[C[C[C[C[C[C[C[1P[1P home-vg1 home-vg0 home-vg0 home-vgm home-vg[1P home-vgM home-vg
+[?2004l  Logical volume "home-snap-lv" created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvcreate -n home-snap-lv -L 100M home-vg[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@r[1@e[1@m[1@o[1@v[1@e[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[C[1P[1P[1P home-vg[1Phome-vg[1Pome-vg[1Pme-vg[1Pe-vg[1P-vg[1Pvg[1Pg[K[K
+[?2004l  Volume group "home-snap-lv" not found
+  Cannot process volume group home-snap-lv
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvremove home-snap-lvcreate -n home-snap-lv -L 100M home-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[19Premove home-snap-lv/home-snap-lvdhome-snap-lvehome-snap-lvvhome-snap-lv/home-snap-lv[Chome-snap-lv home-snap-lvo home-snap-lvme-vg/ home-snap-lv[1Phome-snap-lv
+[?2004lDo you really want to remove and DISCARD active logical volume home-vg/home-snap-lv? [y/n]: y
+  Logical volume "home-snap-lv" successfully removed
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvremove /dev/home-vg/home-snap-lv[13Phome-snap-lvcreate -n home-snap-lv -L 100M home-vg[C[1@-[1@s[1@ [C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1@-[1@l[1@v
+[?2004l  The origin name should include the volume group.
+  Run `lvcreate --help' for more information.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvcreate -s -n home-snap-lv -L 100M home-vg[1Pome-vg[1Pme-vg[1Pe-vg[1P-vg[1Pvg[1Pg[K[7m/dev/home-vg/home-snap-[27m[7ml[27m[7mv[27m[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/dev/home-vg/home-snap-lv[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cnap-lv[K[A]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cap-lv [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pp-lv
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P-lv[1Plv
+[?2004l  Logical volume "home-snap-lv" created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ rm -f /home/g[Kfile{1..10}
+[?2004lrm: cannot remove '/home/file1': Permission denied
+rm: cannot remove '/home/file2': Permission denied
+rm: cannot remove '/home/file3': Permission denied
+rm: cannot remove '/home/file4': Permission denied
+rm: cannot remove '/home/file5': Permission denied
+rm: cannot remove '/home/file6': Permission denied
+rm: cannot remove '/home/file7': Permission denied
+rm: cannot remove '/home/file8': Permission denied
+rm: cannot remove '/home/file9': Permission denied
+rm: cannot remove '/home/file10': Permission denied
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /home/
+[?2004lfile11  file13  file15  file17  file19  [0m[01;34mvagrant[0m
+file12  file14  file16  file18  file20
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /home/sudo rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[13Phome-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Premove /dev/home-vg/home-snap-lv
+[?2004lDo you really want to remove and DISCARD active logical volume home-vg/home-snap-lv? [y/n]: y
+  Logical volume "home-snap-lv" successfully removed
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvremove /dev/home-vg/home-snap-lv[K
+[?2004l  Failed to find logical volume "home-vg/home-snap-l"
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvremove /dev/home-vg/home-snap-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K/ls[K[K[Kls /mnt
+[?2004l[0m[01;34mlost+found[0m  [01;34mvagrant[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /mntsudo lvremove /dev/home-vg/home-snap-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[13Phome-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Premove /dev/home-vg/home-snap-lv[13Phome-snap-lvcreate -n home-snap-lv -L 100M home-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo touch /home/file{1..20}[C[C[C[1Pome/file{1..20}[1Pme/file{1..20}[1Pe/file{1..20}[1P/file{1..20}m/file{1..20}n/file{1..20}t/file{1..20}
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo touch /mnt/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[K
+[?2004lfile1   file12  file15  file18  file20  file5  file8       [0m[01;34mvagrant[0m
+file10  file13  file16  file19  file3   file6  file9
+file11  file14  file17  file2   file4   file7  [01;34mlost+found[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /mntsudo touch /mnt/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[Ksudo lvremove /dev/home-vg/home-snap-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv
+[?2004l  Logical volume "home-snap-lv" created.
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[Ksudo touch /mnt/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[Ksudo lvremove /dev/home-vg/home-snap-l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo rm -f /home/file{1..10}[C[C[1P/file{1..10}[1P/file{1..10}[1P/file{1..10}[1P/file{1..10}m/file{1..10}n/file{1..10}t/file{1..10}
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo rm -f /mnt/file{1..10}lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[K
+[?2004lfile11  file13  file15  file17  file19  [0m[01;34mlost+found[0m
+file12  file14  file16  file18  file20  [01;34mvagrant[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ ls /mnt[K[K[K[K[K[K[Kumountsumount[Cumountdumountoumount umount[C[C[C[C[C[C /mnt
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvconvert --merge /dev/home-vg/home-snap-lv 
+[?2004l  Merging of volume home-vg/home-snap-lv started.
+  home-vg/home-lv: Merged: 100.00%
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo lvconvert --merge /dev/home-vg/home-snap-lv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cumount /mnt[K[9Pls[C[C[C[C[Csudo rm -f /mnt/file{1..10}lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[Ksudo touch /mnt/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt[Ksudo lvremove /dev/home-vg/home-snap-lv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo rm -f /home/file{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo lvcreate -s -n home-snap-lv -L 100M /dev/home-vg/home-lv[13Phome-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Premove /dev/home-vg/home-snap-lv[13Phome-snap-lvcreate -n home-snap-lv -L 100M home-vg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home/[Ksudo touch /home/file{1..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pmkdir /tmp/oldhome[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pls /home/vagrant/mnt/[K[17@sudo cp -aR /home/*[C[C[C[C[C[C[12@mount /dev/home-vg/home-lv[C[C[C[C[C[C
+[?2004l[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudo mount /dev/home-vg/home-lv /mnt/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvconvert --merge /dev/home-vg/home-snap-lv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cumount /mnt[K[9Pls[C[C[C[C[C
+[?2004lfile1   file12  file15  file18  file20  file5  file8       [0m[01;34mvagrant[0m
+file10  file13  file16  file19  file3   file6  file9
+file11  file14  file17  file2   file4   file7  [01;34mlost+found[0m
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2023-12-03 19:52:42+00:00 [COMMAND_EXIT_CODE="0"]
