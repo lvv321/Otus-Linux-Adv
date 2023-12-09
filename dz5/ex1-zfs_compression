@@ -1,0 +1,238 @@
+Script started on 2023-12-09 09:11:31+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ sudi[Ko -o[Ki
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# exitlsblkzpool destroy mypool1234[1Premove[C[C[C[C[C[C[C[C[8P--helpremove mypool4 mirror /dev/sdh /dev/sdi[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccreat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cf /dev/sdg2 mirror /dev/sdd /dev/sde1 mirror /dev/sdb /dev/sdc
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zpool create mypool1 mirror /dev/sdb /dev/sdc[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Klsblkzpool destroy mypool1234[1Premove[C[C[C[C[C[C[C[C[8P--helpremove mypool4 mirror /dev/sdh /dev/sdi[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccreat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cf /dev/sdg2 mirror /dev/sdd /dev/sde
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zpool create mypool2 mirror /dev/sdd /dev/sde1 mirror /dev/sdb /dev/sdc[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Klsblkzpool destroy mypool1234[1Premove[C[C[C[C[C[C[C[C[8P--helpremove mypool4 mirror /dev/sdh /dev/sdi[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccreat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cf /dev/sdg
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zpool create mypool3 mirror /dev/sdf /dev/sdg2 mirror /dev/sdd /dev/sde1 mirror /dev/sdb /dev/sdc[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Klsblkzpool destroy mypool1234[1Premove[C[C[C[C[C[C[C[C[8P--helpremove mypool4 mirror /dev/sdh /dev/sdi
+[?2004lcannot open 'mypool4': no such pool
+[?2004h]0;root@myvm: ~root@myvm:~# zpool remove mypool4 mirror /dev/sdh /dev/sdi[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccreate mypool3 mirror /dev/sdf /dev/sdg2 mirror /dev/sdd /dev/sde1 mirror /dev/sdb /dev/sdc[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Klsblkzpool destroy mypool12321[C[C[C[C[C[C[C[C[C[C[C[C[Clsblk[K[1Pexitzpool create mypool1 mirror /dev/sdb /dev/sdc2 mirror /dev/sdd /dev/sde3 mirror /dev/sdf /dev/sdg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cremove mypool4 mirror /dev/sdh /dev/sdi[C[C[C[C[C[C[C[C[C[C[C[C[C[Kzpool remove mypool4 mirror /dev/sdh /dev/sdi[C[1P[1P[1P[1P[1P[1P[1@c[1@r[1@e[1@a[1@t[1@w[1P[1@e
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# lsblk
+[?2004lNAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0  63.4M  1 loop /snap/core20/1974
+loop1                       7:1    0 111.9M  1 loop /snap/lxd/24322
+loop2                       7:2    0  53.3M  1 loop /snap/snapd/19457
+loop3                       7:3    0  40.9M  1 loop /snap/snapd/20290
+loop4                       7:4    0  63.5M  1 loop /snap/core20/2015
+sda                         8:0    0  14.6G  0 disk 
+├─sda1                      8:1    0     1M  0 part 
+├─sda2                      8:2    0   1.8G  0 part /boot
+└─sda3                      8:3    0  12.9G  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:0    0    10G  0 lvm  /
+sdb                         8:16   0   512M  0 disk 
+├─sdb1                      8:17   0   502M  0 part 
+└─sdb9                      8:25   0     8M  0 part 
+sdc                         8:32   0   512M  0 disk 
+├─sdc1                      8:33   0   502M  0 part 
+└─sdc9                      8:41   0     8M  0 part 
+sdd                         8:48   0   512M  0 disk 
+├─sdd1                      8:49   0   502M  0 part 
+└─sdd9                      8:57   0     8M  0 part 
+sde                         8:64   0   512M  0 disk 
+├─sde1                      8:65   0   502M  0 part 
+└─sde9                      8:73   0     8M  0 part 
+sdf                         8:80   0   512M  0 disk 
+├─sdf1                      8:81   0   502M  0 part 
+└─sdf9                      8:89   0     8M  0 part 
+sdg                         8:96   0   512M  0 disk 
+├─sdg1                      8:97   0   502M  0 part 
+└─sdg9                      8:105  0     8M  0 part 
+sdh                         8:112  0   512M  0 disk 
+├─sdh1                      8:113  0   502M  0 part 
+└─sdh9                      8:121  0     8M  0 part 
+sdi                         8:128  0   512M  0 disk 
+├─sdi1                      8:129  0   502M  0 part 
+└─sdi9                      8:137  0     8M  0 part 
+[?2004h]0;root@myvm: ~root@myvm:~# zpp[Kool list
+[?2004lNAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+mypool1   480M   105K   480M        -         -     0%     0%  1.00x    ONLINE  -
+mypool2   480M   104K   480M        -         -     0%     0%  1.00x    ONLINE  -
+mypool3   480M   105K   480M        -         -     0%     0%  1.00x    ONLINE  -
+mypool4   480M   105K   480M        -         -     0%     0%  1.00x    ONLINE  -
+[?2004h]0;root@myvm: ~root@myvm:~# zpool status
+[?2004l  pool: mypool1
+ state: ONLINE
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	mypool1     ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    sdb     ONLINE       0     0     0
+	    sdc     ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: mypool2
+ state: ONLINE
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	mypool2     ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    sdd     ONLINE       0     0     0
+	    sde     ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: mypool3
+ state: ONLINE
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	mypool3     ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    sdf     ONLINE       0     0     0
+	    sdg     ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: mypool4
+ state: ONLINE
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	mypool4     ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    sdh     ONLINE       0     0     0
+	    sdi     ONLINE       0     0     0
+
+errors: No known data errors
+[?2004h]0;root@myvm: ~root@myvm:~# zfs set compression=lzjb mypool1
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zfs set compression=lzjb mypool1[C[K2[C[1P mypool2[1P mypool23 mypool2[1P mypool24 mypool2
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zfs set compression=lz4 mypool2[C[K4[K3[1P mypool3[1P mypool3[1P mypool3g mypool3z mypool3i mypool3p mypool3- mypool39 mypool3
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zfs set compression=gzip-9 mypool3[K4[C[C[C[C[C[C[C[C[C[C[C[C[C[Kzfs set compression=gzip-9 mypool4[C[1P mypool4[1P mypool4[1P mypool4[1P mypool4[1P mypool4[1P mypool4z mypool4l mypool4e mypool4
+[?2004l[?2004h]0;root@myvm: ~root@myvm:~# zfs get all | grep compression
+[?2004lmypool1  [01;31m[Kcompression[m[K           lzjb                   local
+mypool2  [01;31m[Kcompression[m[K           lz4                    local
+mypool3  [01;31m[Kcompression[m[K           gzip-9                 local
+mypool4  [01;31m[Kcompression[m[K           zle                    local
+[?2004h]0;root@myvm: ~root@myvm:~# wget [K[K[K[K[Kfor i in {1..4}; do wget -P /mypool$i [7mhttps://fstec.ru/files/492/--[27m[7m-[27m[7m15--2008-/887/---15--2008-.pdf[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chttps://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf; dine
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;root@myvm: ~root@myvm:~# for i in {1..4}; do wget -P /mypool$i https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf; dine[K[K[Kone
+[?2004l--2023-12-09 09:22:53--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+ERROR: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+To connect to fstec.ru insecurely, use `--no-check-certificate'.
+--2023-12-09 09:22:53--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+ERROR: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+To connect to fstec.ru insecurely, use `--no-check-certificate'.
+--2023-12-09 09:22:53--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+ERROR: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+To connect to fstec.ru insecurely, use `--no-check-certificate'.
+--2023-12-09 09:22:53--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+ERROR: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+To connect to fstec.ru insecurely, use `--no-check-certificate'.
+[?2004h]0;root@myvm: ~root@myvm:~# for i in {1..4}; do wget -P /mypool$i https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf; done[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-P /mypool$i https://fstec.ru/files/492/--[1@-[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-P /mypool$i https://fstec.ru/files/492/-[C[1@-[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -P /mypool$i https://fstec.ru/files/492/[C[C[1@-[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-P /mypool$i https://fstec.ru/files/492/-[C[C[1P[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CP /mypool$i https://fstec.ru/files/492/--[C[1P[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CP /mypool$i https://fstec.ru/files/492/---[1P[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[7m--no-check-certificate[27m-P /mypool$i https://[22@fstec.ru/files/492/---[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C--no-check-certificate -P /mypool$i https:/[1@/[A]0;root@myvm: ~root@myvm:~# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l--2023-12-09 09:23:19--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+WARNING: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+HTTP request sent, awaiting response... 303 See other
+Location: https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000 [following]
+--2023-12-09 09:23:19--  https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000
+Reusing existing connection to fstec.ru:443.
+HTTP request sent, awaiting response... 200 OK
+Length: 1804442 (1.7M) [application/octet-stream]
+Saving to: ‘/mypool1/---15--2008-.pdf’
+
+---15--2008-.pdf      0%[                    ]       0  --.-KB/s               ---15--2008-.pdf    100%[===================>]   1.72M  8.83MB/s    in 0.2s    
+
+2023-12-09 09:23:19 (8.83 MB/s) - ‘/mypool1/---15--2008-.pdf’ saved [1804442/1804442]
+
+--2023-12-09 09:23:19--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+WARNING: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+HTTP request sent, awaiting response... 303 See other
+Location: https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000 [following]
+--2023-12-09 09:23:19--  https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000
+Reusing existing connection to fstec.ru:443.
+HTTP request sent, awaiting response... 200 OK
+Length: 1804442 (1.7M) [application/octet-stream]
+Saving to: ‘/mypool2/---15--2008-.pdf’
+
+---15--2008-.pdf      0%[                    ]       0  --.-KB/s               ---15--2008-.pdf    100%[===================>]   1.72M  8.76MB/s    in 0.2s    
+
+2023-12-09 09:23:20 (8.76 MB/s) - ‘/mypool2/---15--2008-.pdf’ saved [1804442/1804442]
+
+--2023-12-09 09:23:20--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+WARNING: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+HTTP request sent, awaiting response... 303 See other
+Location: https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000 [following]
+--2023-12-09 09:23:20--  https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000
+Reusing existing connection to fstec.ru:443.
+HTTP request sent, awaiting response... 200 OK
+Length: 1804442 (1.7M) [application/octet-stream]
+Saving to: ‘/mypool3/---15--2008-.pdf’
+
+---15--2008-.pdf      0%[                    ]       0  --.-KB/s               ---15--2008-.pdf    100%[===================>]   1.72M  10.3MB/s    in 0.2s    
+
+2023-12-09 09:23:20 (10.3 MB/s) - ‘/mypool3/---15--2008-.pdf’ saved [1804442/1804442]
+
+--2023-12-09 09:23:20--  https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf
+Resolving fstec.ru (fstec.ru)... 95.173.157.24
+Connecting to fstec.ru (fstec.ru)|95.173.157.24|:443... connected.
+WARNING: cannot verify fstec.ru's certificate, issued by ‘CN=Russian Trusted Sub CA,O=The Ministry of Digital Development and Communications,C=RU’:
+  Unable to locally verify the issuer's authority.
+HTTP request sent, awaiting response... 303 See other
+Location: https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000 [following]
+--2023-12-09 09:23:21--  https://fstec.ru/index.php?option=com_dropfiles&format=&task=frontfile.download&catid=492&id=887&Itemid=1000000000000
+Reusing existing connection to fstec.ru:443.
+HTTP request sent, awaiting response... 200 OK
+Length: 1804442 (1.7M) [application/octet-stream]
+Saving to: ‘/mypool4/---15--2008-.pdf’
+
+---15--2008-.pdf      0%[                    ]       0  --.-KB/s               ---15--2008-.pdf    100%[===================>]   1.72M  9.08MB/s    in 0.2s    
+
+2023-12-09 09:23:21 (9.08 MB/s) - ‘/mypool4/---15--2008-.pdf’ saved [1804442/1804442]
+
+[?2004h]0;root@myvm: ~root@myvm:~# ls -l /mypool1[K*
+[?2004l/mypool1:
+total 1335
+-rw-r--r-- 1 root root 1804442 Dec  9 09:23 ---15--2008-.pdf
+
+/mypool2:
+total 1244
+-rw-r--r-- 1 root root 1804442 Dec  9 09:23 ---15--2008-.pdf
+
+/mypool3:
+total 1206
+-rw-r--r-- 1 root root 1804442 Dec  9 09:23 ---15--2008-.pdf
+
+/mypool4:
+total 1768
+-rw-r--r-- 1 root root 1804442 Dec  9 09:23 ---15--2008-.pdf
+[?2004h]0;root@myvm: ~root@myvm:~# zfs list
+[?2004lNAME      USED  AVAIL     REFER  MOUNTPOINT
+mypool1  1.44M   351M     1.33M  /mypool1
+mypool2  1.34M   351M     1.24M  /mypool2
+mypool3  1.30M   351M     1.20M  /mypool3
+mypool4  1.85M   350M     1.75M  /mypool4
+[?2004h]0;root@myvm: ~root@myvm:~# zfs listls -l /mypool*for i in {1..4}; do wget --no-check-certificate -P /mypool$i https://fstec.ru/files/492/---15--2008-/887/---15--2008-.pdf; done[AP /mypool$i https://fstec.ru/files/492/---[23P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cine[A[C[C[C[C[C[C[C[C[C[C[C[C[C[37Pzfs get all | grep compression
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cset compression=zle mypool4[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pget all | grep compression[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cset compression=zle mypool4[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pget all | grep compression[K[K[Kratio | grep -v ref
+[?2004lmypool1  compressratio         1.33x                  -
+mypool2  compressratio         1.42x                  -
+mypool3  compressratio         1.47x                  -
+mypool4  compressratio         1.01x                  -
+[?2004h]0;root@myvm: ~root@myvm:~# exit
+[?2004llogout
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2023-12-09 09:25:08+00:00 [COMMAND_EXIT_CODE="0"]
