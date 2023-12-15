@@ -1,0 +1,25 @@
+Script started on 2023-12-15 16:55:08+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+[?2004h]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ [7muname -rs[27muname -rs
+[?2004lLinux 6.2.16-myversion2
+[?2004h]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ grep [7mCONFIG_NFS_DISABLE_UDP_SUPPORT[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CCONFIG_NFS_DISABLE_UDP_SUPPORT /boot/.c[K[K
+System.map-6.2.0-37-generic   initrd.img-6.2.16-myversion
+System.map-6.2.16-myversion   initrd.img-6.2.16-myversion2
+System.map-6.2.16-myversion2  initrd.img.old
+config-6.2.0-37-generic       lost+found/
+config-6.2.16-myversion       vmlinuz
+config-6.2.16-myversion2      vmlinuz-6.2.0-37-generic
+grub/                         vmlinuz-6.2.16-myversion
+initrd.img                    vmlinuz-6.2.16-myversion2
+initrd.img-6.2.0-37-generic   vmlinuz.old
+]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ grep CONFIG_NFS_DISABLE_UDP_SUPPORT /boot/[K/config-6.2.16-myversion2
+[?2004l# [01;31m[KCONFIG_NFS_DISABLE_UDP_SUPPORT[m[K is not set
+[?2004h]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ grep CONFIG_NFS_DISABLE_UDP_SUPPORT /boot/config-6.2.16-myversion2[A]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ uname -rs[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo rebootnano /etc/fstab [6Preboot now[5Pmountt[Ksudo systemctl daemon-reload[7Pnano /etc/fstab umount /nfs/sharemount[K 192.168.56.22:/srv/share /nfs/share -o vers=3,proto=udp[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C:/srv/share /nfs/share -o vers=3,proto=u[1Pdp[A]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C12:/srv/share /nfs/share -o vers=3,proto=udp[A]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l[?2004h]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ mnt[K[K[Kmount | grep udp[K[K[Knfs
+[?2004lsystemd-1 on /[01;31m[Knfs[m[K/share type autofs (rw,relatime,fd=57,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=913)
+192.168.56.12:/srv/share on /[01;31m[Knfs[m[K/share type [01;31m[Knfs[m[K (rw,relatime,vers=3,rsize=32768,wsize=32768,namlen=255,hard,proto=udp,timeo=11,retrans=3,sec=sys,mountaddr=192.168.56.12,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=192.168.56.12)
+[?2004h]0;vagrant@client: ~[01;32mvagrant@client[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2023-12-15 16:57:32+00:00 [COMMAND_EXIT_CODE="0"]
