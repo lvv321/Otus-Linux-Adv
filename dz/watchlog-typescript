@@ -1,0 +1,75 @@
+Script started on 2024-01-06 13:36:32+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="107" LINES="29"]
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ tail -f /var/log/syslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C'date'[Ktail -f /var/log/syslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kcat /etc/default/watchlog 
+[?2004l\# Config file for my watchlog service   
+# Placement /etc/default
+
+# Log file and message for monitoring
+LOG=/var/log/watchlog.log
+MSG="ALERT"
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat /opt/watchlog.sh 
+[?2004l#!/bin/bash
+
+MSG=$1
+LOG=$2
+DATE=`date`
+
+if grep $MSG $LOG &> /dev/null
+#if grep ALERT /var/log/watchlog.log &> /dev/null
+then
+	logger "$DATE: Message was found"
+else
+	logger "$DATE: Message was NOT found"
+	#exit 0
+fi
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat /opt/watchlog.sh [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7m/etc/systemd/system/watchlog.service[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/etc/systemd/system/watchlog.service[K[Kce 
+[?2004l[Unit]
+Description=My watchlog service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/watchlog
+ExecStart=/opt/watchlog.sh $MSG $LOG
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat /etc/systemd/system/watchlog.service [K[K[K[K[K[K[K[Ktimer 
+[?2004l[Unit]
+Description=Run watchlog script every 30 sec
+
+[Timer]
+OnUnitActiveSec=30
+Unit=watchlog.service
+
+[Install]
+WantedBy=multi-user.target
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ tailcat /etc/systemd/system/watchlog.timer [2@service[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Popt/watchlog.sh[C[5@etc/default/watchlog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Ptail -f /var/log/syslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C'date'[Ktail -f /var/log/syslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C'date'[K`date`tail -f /var/log/syslog[1Plog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[11Psudo reboot[5Prebootsystemctl status watchlog[1Prt[C[C[C[C[C[C[C[C[C[1@tus[C[C[C[C[C[C[C[C[C[2Pop[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh "ALERT" /var/log/watchlog.log [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Psudo nano /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh "ALERT" /var/log/watchlog.log [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Psudo nano /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C'date'[Ksudo nano /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh "ALERT" /var/log/watchlog.log [2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@"ALERT"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@"ALERT"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Psudo nano /etc/default/watchlog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh "ALERT" /var/log/watchlog.log [2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@"ALERT"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@"ALERT"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@"ALERT"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[16Psudo nano /etc/default/watchlog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh "ALERT" /var/log/watchlog.log [2PALERT[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Pcat /etc/default/watchlogsystemd/system/watchlog.service [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@nano[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pcat /etc/systemd/system/watchlog.timer[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pdefault/watchlogsystemd/system/watchlog.service [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Ptail -f /var/log/syslog[1Plogmessages[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh ALERT /var/log/watchlog.log [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Ptail -f /var/log/messages[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pll /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C$1[K[Kgrep ALERT /var/log/watchlog.log &> /dev/null[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Plert^[[A /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3P"ALERT" /opt/watchlog.s[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1PALERT /opt/watchlog.sh &> /dev/null[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pcat /opt/watchlog.sh [5@var/log/watchlog.log[Cetc/default/watch[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15Psudo rebootapt upgrade[1Pdated[C[C[C[C[C[C[Cu[C[C[C[C[C[C[C[C[C/tmp/isomount/VBoxLinuxAdditions.run [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Papt install bzip2/tmp/isomount/VBoxLinuxAdditions.run [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15PVBoxLinuxAdditions.runin[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[KVBoxLinuxAdditions.rin[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd isomount/sudo mount -o loop /home/vagrant/VBoxGuestAdditions.iso /tmp/isomount/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmkdir isomount[Kls[Kcd /tmp/ls[Ksudo apt upgrade[1Pdategradels[Kcd /tmp/ls[Kmkdir isomountsudo mount -o loop /home/vagrant/VBoxGuestAdditions.iso /tmp/isomount/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd isomount/[Kls[KVBoxLinuxAdditions.rin[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[KVBoxLinuxAdditions.rinun[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/tmp/isomount/VBoxLinuxAdditions.run [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Papt install bzip2/tmp/isomount/VBoxLinuxAdditions.run [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cupd update[Ka[C[C[C[C[C[C[C[C[Ct[C[C[C[C[C[C[Cgrade[5Prebootcat /etc/default/watchlog var/log/watchlog.[C[C[C[C[5Popt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep ALERT /opt/watchlog.sh &> /dev/null[K"ALERT" /opt/watchlog.s[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CAlert^[[A /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLERT /var/log/watchlog.log &> /dev/null[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C$[K1ll /opt/watchlog.sh[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctail -f /var/log/messages[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh ALERT /var/log/watchlog.log [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Ptail -f /var/log/messages[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/opt/watchlog.sh ALERT /var/log/watchlog.log [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Ptail -f /var/log/messages[3Psylogmessages[3Psylogslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat /etc/systemd/system/watchlog.service [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Ptail -f /var/log/syslog
+[?2004lJan  6 13:38:29 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:38:29 myvm systemd[1]: Finished My watchlog service.
+Jan  6 13:39:01 myvm CRON[21515]: (root) CMD (  [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi)
+Jan  6 13:39:01 myvm systemd[1]: Starting Clean php session files...
+Jan  6 13:39:01 myvm systemd[1]: Starting My watchlog service...
+Jan  6 13:39:01 myvm root: Sat Jan  6 01:39:01 PM UTC 2024: Message was found
+Jan  6 13:39:01 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:39:01 myvm systemd[1]: Finished My watchlog service.
+Jan  6 13:39:01 myvm systemd[1]: phpsessionclean.service: Deactivated successfully.
+Jan  6 13:39:01 myvm systemd[1]: Finished Clean php session files.
+Jan  6 13:39:39 myvm kernel: [148385.383442] clocksource: timekeeping watchdog on CPU1: acpi_pm wd-wd read-back delay of 80457ns
+Jan  6 13:39:39 myvm kernel: [148385.383573] clocksource: wd-tsc-wd read-back delay of 379936ns, clock-skew test skipped!
+Jan  6 13:40:18 myvm systemd[1]: Starting My watchlog service...
+Jan  6 13:40:18 myvm root: Sat Jan  6 01:40:18 PM UTC 2024: Message was found
+Jan  6 13:40:18 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:40:18 myvm systemd[1]: Finished My watchlog service.
+Jan  6 13:41:02 myvm systemd[1]: Starting My watchlog service...
+Jan  6 13:41:02 myvm root: Sat Jan  6 01:41:02 PM UTC 2024: Message was found
+Jan  6 13:41:02 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:41:02 myvm systemd[1]: Finished My watchlog service.
+Jan  6 13:41:41 myvm systemd[1]: Starting My watchlog service...
+Jan  6 13:41:41 myvm root: Sat Jan  6 01:41:41 PM UTC 2024: Message was found
+Jan  6 13:41:41 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:41:41 myvm systemd[1]: Finished My watchlog service.
+Jan  6 13:42:20 myvm systemd[1]: Starting My watchlog service...
+Jan  6 13:42:20 myvm root: Sat Jan  6 01:42:20 PM UTC 2024: Message was found
+Jan  6 13:42:20 myvm systemd[1]: watchlog.service: Deactivated successfully.
+Jan  6 13:42:20 myvm systemd[1]: Finished My watchlog service.
+^C
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ tail -f /var/log/syslog[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat /etc/systemd/system/watchlog.timer [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kexit
+[?2004lexit
+
+Script done on 2024-01-06 13:44:08+00:00 [COMMAND_EXIT_CODE="130"]
