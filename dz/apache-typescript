@@ -1,85 +1,0 @@
-Script started on 2024-01-06 14:13:08+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="107" LINES="29"]
-[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat [7metc/apache2-second/ports.conf [27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cetc/apache2-second/ports.conf [C[1@/[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1@f[1@i[1@r[1@s[1@t[1@ [1P
-[?2004l# If you just change the port or add more ports here, you will likely also
-# have to change the VirtualHost statement in
-# /etc/apache2/sites-enabled/000-default.conf
-
-Listen 81
-
-<IfModule ssl_module>
-	Listen 443
-</IfModule>
-
-<IfModule mod_gnutls.c>
-	Listen 443
-</IfModule>
-
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat /etc/apache2-first/ports.conf [C[C[C[1P[1P[1P[1P[1P[1@s[1@e[1@c[1@o[1@n[1@f[1P[1@d
-[?2004l# If you just change the port or add more ports here, you will likely also
-# have to change the VirtualHost statement in
-# /etc/apache2/sites-enabled/000-default.conf
-
-Listen 82
-
-<IfModule ssl_module>
-	Listen 443
-</IfModule>
-
-<IfModule mod_gnutls.c>
-	Listen 443
-</IfModule>
-
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [7msystemctl status apache2@first.service[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csystemctl status apache2@first.service
-[?2004l[?1h=[0;1;32m●[0m apache2@first.service - The Apache HTTP Server[m
-     Loaded: loaded (/lib/systemd/system/apache2@.service; disabled; vendor preset: enabled)[m
-     Active: [0;1;32mactive (running)[0m since Sat 2024-01-06 12:47:16 UTC; 1h 28min ago[m
-       Docs: https://httpd.apache.org/docs/2.4/[m
-    Process: 21139 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)[m
-   Main PID: 21143 (apache2)[m
-      Tasks: 7 (limit: 2262)[m
-     Memory: 12.0M[m
-        CPU: 1.085s[m
-     CGroup: /system.slice/system-apache2.slice/apache2@first.service[m
-             ├─21143 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             ├─21144 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             ├─21145 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             ├─21146 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             ├─21147 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             ├─21148 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-             └─21149 /usr/sbin/apache2 -d /etc/apache2-first -k start[m
-[m
-Jan 06 12:47:16 myvm systemd[1]: Starting The Apache HTTP Server...[m
-Jan 06 12:47:16 myvm apachectl[21142]: AH00558: apache2: Could not reliably determine the server's fully q[m[7m>[27m
-Jan 06 12:47:16 myvm systemd[1]: Started The Apache HTTP Server.[m
-[7mlines 1-21/21 (END)[27m[K[K[?1l>[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ systemctl status apache2@first.service[1Pirst.service[1Prst.service[1Pst.service[1Pt.service[1P.services.servicee.servicec.serviceo.servicen.servicef.service[1P.serviced.service
-[?2004l[?1h=[0;1;32m●[0m apache2@second.service - The Apache HTTP Server[m
-     Loaded: loaded (/lib/systemd/system/apache2@.service; disabled; vendor preset: enabled)[m
-     Active: [0;1;32mactive (running)[0m since Sat 2024-01-06 12:12:27 UTC; 2h 3min ago[m
-       Docs: https://httpd.apache.org/docs/2.4/[m
-    Process: 20828 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)[m
-   Main PID: 20839 (apache2)[m
-      Tasks: 7 (limit: 2262)[m
-     Memory: 11.9M[m
-        CPU: 1.846s[m
-     CGroup: /system.slice/system-apache2.slice/apache2@second.service[m
-             ├─20839 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             ├─20840 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             ├─20841 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             ├─20842 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             ├─20843 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             ├─20844 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-             └─20845 /usr/sbin/apache2 -d /etc/apache2-second -k start[m
-[m
-Jan 06 12:12:27 myvm systemd[1]: Starting The Apache HTTP Server...[m
-Jan 06 12:12:27 myvm apachectl[20838]: AH00558: apache2: Could not reliably determine the server's fully q[m[7m>[27m
-Jan 06 12:12:27 myvm systemd[1]: Started The Apache HTTP Server.[m
-[7mlines 1-21/21 (END)[27m[K[K[?1l>[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ systemctl status apache2@second.service[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7msudo ss -tnulp | grep apache2[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo ss -tnulp | grep apache2
-[?2004ltcp   LISTEN 0      511                   *:80              *:*    users:(("[01;31m[Kapache2[m[K",pid=18282,fd=4),("[01;31m[Kapache2[m[K",pid=18281,fd=4),("[01;31m[Kapache2[m[K",pid=18280,fd=4),("[01;31m[Kapache2[m[K",pid=18279,fd=4),("[01;31m[Kapache2[m[K",pid=18278,fd=4),("[01;31m[Kapache2[m[K",pid=18277,fd=4),("[01;31m[Kapache2[m[K",pid=18275,fd=4))
-tcp   LISTEN 0      511                   *:81              *:*    users:(("[01;31m[Kapache2[m[K",pid=21149,fd=4),("[01;31m[Kapache2[m[K",pid=21148,fd=4),("[01;31m[Kapache2[m[K",pid=21147,fd=4),("[01;31m[Kapache2[m[K",pid=21146,fd=4),("[01;31m[Kapache2[m[K",pid=21145,fd=4),("[01;31m[Kapache2[m[K",pid=21144,fd=4),("[01;31m[Kapache2[m[K",pid=21143,fd=4))
-tcp   LISTEN 0      511                   *:82              *:*    users:(("[01;31m[Kapache2[m[K",pid=20845,fd=4),("[01;31m[Kapache2[m[K",pid=20844,fd=4),("[01;31m[Kapache2[m[K",pid=20843,fd=4),("[01;31m[Kapache2[m[K",pid=20842,fd=4),("[01;31m[Kapache2[m[K",pid=20841,fd=4),("[01;31m[Kapache2[m[K",pid=20840,fd=4),("[01;31m[Kapache2[m[K",pid=20839,fd=4))
-[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ exitr[K
-[?2004lexit
-
-Script done on 2024-01-06 14:22:06+00:00 [COMMAND_EXIT_CODE="0"]
