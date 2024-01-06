@@ -1,0 +1,66 @@
+Script started on 2024-01-06 13:56:24+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="107" LINES="29"]
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ [7mcat /etc/default/spawn-fcgi[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat /etc/default/spawn-fcgi
+[?2004lSOCKET=/var/run/php-fcgi.sock
+OPTIONS="-u www-data -g www-data -s $SOCKET -S -M 0600 -C 32 -F 1 -- /usr/bin/php-cgi"
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ cat /etc/systre[K=e[K[K[Kemd/system/spawn-fcgi.service 
+[?2004l[Unit]
+Description=Spawn-fcgi startup service
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/spawn-fcgi.pid
+EnvironmentFile=/etc/default/spawn-fcgi
+ExecStart=/usr/bin/spawn-fcgi -n $OPTIONS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ systemctl status spawn-fcgi
+[?2004l[?1h=[0;1;32m●[0m spawn-fcgi.service - Spawn-fcgi startup service[m
+     Loaded: loaded (/etc/systemd/system/spawn-fcgi.service; disabled; vendor preset: enabled)[m
+     Active: [0;1;32mactive (running)[0m since Sat 2024-01-06 10:07:58 UTC; 3h 49min ago[m
+   Main PID: 19736 (php-cgi)[m
+      Tasks: 33 (limit: 2262)[m
+     Memory: 13.4M[m
+        CPU: 48ms[m
+     CGroup: /system.slice/spawn-fcgi.service[m
+             ├─19736 /usr/bin/php-cgi[m
+             ├─19739 /usr/bin/php-cgi[m
+             ├─19740 /usr/bin/php-cgi[m
+             ├─19741 /usr/bin/php-cgi[m
+             ├─19742 /usr/bin/php-cgi[m
+             ├─19743 /usr/bin/php-cgi[m
+             ├─19744 /usr/bin/php-cgi[m
+             ├─19745 /usr/bin/php-cgi[m
+             ├─19746 /usr/bin/php-cgi[m
+             ├─19747 /usr/bin/php-cgi[m
+             ├─19748 /usr/bin/php-cgi[m
+             ├─19749 /usr/bin/php-cgi[m
+             ├─19750 /usr/bin/php-cgi[m
+             ├─19751 /usr/bin/php-cgi[m
+             ├─19752 /usr/bin/php-cgi[m
+             ├─19753 /usr/bin/php-cgi[m
+             ├─19754 /usr/bin/php-cgi[m
+             ├─19755 /usr/bin/php-cgi[m
+             ├─19756 /usr/bin/php-cgi[m
+             ├─19757 /usr/bin/php-cgi[m
+[7mlines 1-28[27m[K[K [KESCESC[KOO[KBB[K             ├─19758 /usr/bin/php-cgi[m
+[7mlines 2-29[27m[K[K [KESCESC[KOO[KBB[K             ├─19759 /usr/bin/php-cgi[m
+[7mlines 3-30[27m[K[K [KESCESC[KOO[KBB[K             ├─19760 /usr/bin/php-cgi[m
+[7mlines 4-31[27m[K[K [KESCESC[KOO[KBB[K             ├─19761 /usr/bin/php-cgi[m
+[7mlines 5-32[27m[K[K [KESCESC[KOO[KBB[K             ├─19762 /usr/bin/php-cgi[m
+[7mlines 6-33[27m[K[K [KESCESC[KOO[KBB[K             ├─19763 /usr/bin/php-cgi[m
+[7mlines 7-34[27m[K[K [KESCESC[KOO[KBB[K             ├─19764 /usr/bin/php-cgi[m
+[7mlines 8-35[27m[K[K [KESCESC[KOO[KBB[K             ├─19765 /usr/bin/php-cgi[m
+[7mlines 9-36[27m[K[K [KESCESC[KOO[KBB[K             ├─19766 /usr/bin/php-cgi[m
+[7mlines 10-37[27m[K[K [KESCESC[KOO[KBB[K             ├─19767 /usr/bin/php-cgi[m
+[7mlines 11-38[27m[K[K [KESCESC[KOO[KBB[K             ├─19768 /usr/bin/php-cgi[m
+[7mlines 12-39[27m[K[K [KESCESC[KOO[KBB[K             ├─19769 /usr/bin/php-cgi[m
+[7mlines 13-40[27m[K[K [KESCESC[KOO[KBB[K             └─19770 /usr/bin/php-cgi[m
+[7mlines 14-41[27m[K[K [KESCESC[KOO[KBB[K[m
+[7mlines 15-42[27m[K[K [KESCESC[KOO[KBB[KJan 06 10:07:58 myvm systemd[1]: Started Spawn-fcgi startup service.[m
+[7mlines 16-43[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K [KESCESC[KOO[KBB[K[K[7mlines 16-43/43 (END)[27m[K[K[?1l>[?2004h]0;vagrant@myvm: ~[01;32mvagrant@myvm[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2024-01-06 13:59:02+00:00 [COMMAND_EXIT_CODE="0"]
