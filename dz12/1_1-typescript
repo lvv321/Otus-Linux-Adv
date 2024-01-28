@@ -1,0 +1,88 @@
+Script started on Вт 23 янв 2024 17:50:05
+]0;vagrant@selinux:~[?1034h[vagrant@selinux ~]$ sudo ctl[K[K[Ksystemctl status nginx
+[1;31m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;31mfailed[0m (Result: exit-code) since Ср 2024-01-17 18:12:56 UTC; 5 days ago
+  Process: 14341 ExecStartPre=/usr/sbin/nginx -t [1;31m(code=exited, status=1/FAILURE)[0m
+  Process: 14340 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+
+янв 17 18:12:56 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 17 18:12:56 selinux nginx[14341]: nginx: the configuration file /etc/...k
+янв 17 18:12:56 selinux nginx[14341]: nginx: [emerg] bind() to 0.0.0.0:48...)
+янв 17 18:12:56 selinux nginx[14341]: nginx: configuration file /etc/ngin...d
+янв 17 18:12:56 selinux systemd[1]: [1;39mnginx.service: control process exite...=1[0m
+янв 17 18:12:56 selinux systemd[1]: [1;31mFailed to start The nginx HTTP and r...r.[0m
+янв 17 18:12:56 selinux systemd[1]: [1;39mUnit nginx.service entered failed state.[0m
+янв 17 18:12:56 selinux systemd[1]: [1;39mnginx.service failed.[0m
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl status nginx[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K1705515176[K[K[K[K[K[K[K[K[K[Ksudo cat /var/log/audit/audit.log | audit2why
+type=AVC msg=audit(1705515176.918:969): avc:  denied  { name_bind } for  pid=14341 comm="nginx" src=4881 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:unreserved_port_t:s0 tclass=tcp_socket permissive=0
+
+	Was caused by:
+	The boolean nis_enabled was set incorrectly. 
+	Description:
+	Allow nis to enabled
+
+	Allow access by executing:
+	# setsebool -P nis_enabled 1
+]0;vagrant@selinux:~[vagrant@selinux ~]$ setsebool -P nis_enabled 1
+Cannot set persistent booleans, please try as root.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ setsebool -P nis_enabled 1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo setsebool -P nis_enabled 1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cudo cat /var/log/audit/audit.log | audit2why[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Psystemctl status nginx[K[K[K[K[K[K[K[K[Krt nginx
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl start nginxetsebool -P nis_enabled 1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cudo cat /var/log/audit/audit.log | audit2why[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Psystemctl status nginx
+[1;32m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;32mactive (running)[0m since Вт 2024-01-23 17:53:06 UTC; 5s ago
+  Process: 5214 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 5212 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+  Process: 5211 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 5216 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─5216 nginx: master process /usr/sbin/nginx
+           └─5217 nginx: worker process
+
+янв 23 17:53:06 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 23 17:53:06 selinux nginx[5212]: nginx: the configuration file /etc/n...k
+янв 23 17:53:06 selinux nginx[5212]: nginx: configuration file /etc/nginx...l
+янв 23 17:53:06 selinux systemd[1]: Started The nginx HTTP and reverse p...r.
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ wget http://127.0.0.1:4881
+bash: wget: command not found
+]0;vagrant@selinux:~[vagrant@selinux ~]$ wge[Ket[Kt http://127.0.0.1:4881
+--2024-01-23 19:12:37--  http://127.0.0.1:4881/
+Connecting to 127.0.0.1:4881... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4833 (4,7K) [text/html]
+Saving to: ‘index.html’
+
+ 0% [                                       ] 0           --.-K/s              100%[======================================>] 4 833       --.-K/s   in 0,001s  
+
+2024-01-23 19:12:37 (6,79 MB/s) - ‘index.html’ saved [4833/4833]
+
+]0;vagrant@selinux:~[vagrant@selinux ~]$ getseboolsgetseboolugetsebooldgetseboologetsebool getsebool[C[C[C[C[C[C[C[C[C -a |grep [1@ [C[C[C[C[Cnis_enabled
+[01;31m[Knis_enabled[m[K --> on
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo getsebool -a | grep nis_enabled[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pwget http://127.0.0.1:4881[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo systemctl status nginx[1Prt[C[C[C[C[C[Cetsebool -P nis_enabled 1[C[K0
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo setsebool -P nis_enabled 0getsebool -a | grep nis_enabled[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pwget http://127.0.0.1:4881[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo systemctl status nginx[1Prt[C[C[C[C[C[C[1P[1P[1P[1P[1P nginxr nginxe nginxs nginxt nginxa nginxr nginxt nginx
+Job for nginx.service failed because the control process exited with error code. See "systemctl status nginx.service" and "journalctl -xe" for details.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl restart nginxetsebool -P nis_enabled 0getsebool -a | grep nis_enabled[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pwget http://127.0.0.1:4881[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo systemctl status nginx[1Prt[C[C[C[C[C[C[1@tus[C[C[C[C[C[C
+[1;31m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;31mfailed[0m (Result: exit-code) since Вт 2024-01-23 19:14:13 UTC; 19s ago
+  Process: 5214 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 5369 ExecStartPre=/usr/sbin/nginx -t [1;31m(code=exited, status=1/FAILURE)[0m
+  Process: 5368 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 5216 (code=exited, status=0/SUCCESS)
+
+янв 23 19:14:13 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 23 19:14:13 selinux nginx[5369]: nginx: the configuration file /etc/n...k
+янв 23 19:14:13 selinux nginx[5369]: nginx: [emerg] bind() to 0.0.0.0:488...)
+янв 23 19:14:13 selinux nginx[5369]: nginx: configuration file /etc/nginx...d
+янв 23 19:14:13 selinux systemd[1]: [1;39mnginx.service: control process exite...=1[0m
+янв 23 19:14:13 selinux systemd[1]: [1;31mFailed to start The nginx HTTP and r...r.[0m
+янв 23 19:14:13 selinux systemd[1]: [1;39mUnit nginx.service entered failed state.[0m
+янв 23 19:14:13 selinux systemd[1]: [1;39mnginx.service failed.[0m
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ semanage[K[K[K[K[K[K[K[Kexit
+exit
+
+Script done on Вт 23 янв 2024 19:15:06

@@ -1,0 +1,80 @@
+Script started on Вт 23 янв 2024 19:15:53
+]0;vagrant@selinux:~[?1034h[vagrant@selinux ~]$ exitsudo systemctl status nginx
+[1;31m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;31mfailed[0m (Result: exit-code) since Вт 2024-01-23 19:14:13 UTC; 1min 44s ago
+  Process: 5214 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 5369 ExecStartPre=/usr/sbin/nginx -t [1;31m(code=exited, status=1/FAILURE)[0m
+  Process: 5368 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 5216 (code=exited, status=0/SUCCESS)
+
+янв 23 19:14:13 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 23 19:14:13 selinux nginx[5369]: nginx: the configuration file /etc/n...k
+янв 23 19:14:13 selinux nginx[5369]: nginx: [emerg] bind() to 0.0.0.0:488...)
+янв 23 19:14:13 selinux nginx[5369]: nginx: configuration file /etc/nginx...d
+янв 23 19:14:13 selinux systemd[1]: [1;39mnginx.service: control process exite...=1[0m
+янв 23 19:14:13 selinux systemd[1]: [1;31mFailed to start The nginx HTTP and r...r.[0m
+янв 23 19:14:13 selinux systemd[1]: [1;39mUnit nginx.service entered failed state.[0m
+янв 23 19:14:13 selinux systemd[1]: [1;39mnginx.service failed.[0m
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ semanage port -l | grep hh[Kttp
+ValueError: SELinux policy is not managed or store cannot be accessed.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ semanage port -l | grep http[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[01;31m[Khttp[m[K_cache_port_t              tcp      8080, 8118, 8123, 10001-10010
+[01;31m[Khttp[m[K_cache_port_t              udp      3130
+[01;31m[Khttp[m[K_port_t                    tcp      80, 81, 443, 488, 8008, 8009, 8443, 9000
+pegasus_[01;31m[Khttp[m[K_port_t            tcp      5988
+pegasus_[01;31m[Khttp[m[Ks_port_t           tcp      5989
+]0;vagrant@selinux:~[vagrant@selinux ~]$ semanage [C[1@s[1@u[1@d[1@o[1@ [C[C[C[C[C[C[C[C[C-a -t http_port_t -p tcp [6Pport -l | grep http[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@udo s[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a -t http_port_t -p tcp 4881
+usage: semanage [-h]
+                
+                {import,export,login,user,port,ibpkey,ibendport,interface,module,node,fcontext,boolean,permissive,dontaudit}
+                ...
+semanage: error: argument subcommand: invalid choice: 'http_port_t' (choose from 'import', 'export', 'login', 'user', 'port', 'ibpkey', 'ibendport', 'interface', 'module', 'node', 'fcontext', 'boolean', 'permissive', 'dontaudit')
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo semanage -a -t http_port_t -p tcp 4881[C[C[C[C[C[C[1@p[1@o[1@r[1@t[1@ 
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo semanage port -a -t http_port_t -p tcp 4881[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pport -l | grep http[K[K[K[K[K http_port_t
+[01;31m[Khttp_port_t[m[K                    tcp      4881, 80, 81, 443, 488, 8008, 8009, 8443, 9000
+pegasus_[01;31m[Khttp_port_t[m[K            tcp      5988
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo semanage port -l | grep http_port_ta -t http_port_t -p tcp 4881[8Pl | grep http_port_t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ksudo semanage port -l | grep http_port_t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ksy[Kudo systemctl start nginx
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl start nginxemanage port -l | grep http_port_ta -t http_port_t -p tcp 4881[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pport -l | grep http[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pudo systemctl status nginx
+[1;32m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;32mactive (running)[0m since Вт 2024-01-23 19:19:32 UTC; 5s ago
+  Process: 5443 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 5440 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+  Process: 5439 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 5445 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─5445 nginx: master process /usr/sbin/nginx
+           └─5446 nginx: worker process
+
+янв 23 19:19:31 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 23 19:19:31 selinux nginx[5440]: nginx: the configuration file /etc/n...k
+янв 23 19:19:31 selinux nginx[5440]: nginx: configuration file /etc/nginx...l
+янв 23 19:19:32 selinux systemd[1]: Started The nginx HTTP and reverse p...r.
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl status nginx[1Prt[C[C[C[C[C[Cemanage port -l | grep http_port_ta -t http_port_t -p tcp 4881[1P[1@d
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo semanage port -d -t http_port_t -p tcp 4881[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pystemctl status nginx[1P[1P[1P[1P[1P[1P nginxr nginxe nginxs nginxt nginxa nginxr nginxt nginx
+Job for nginx.service failed because the control process exited with error code. See "systemctl status nginx.service" and "journalctl -xe" for details.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ sudo systemctl restart nginxemanage port -d -t http_port_t -p tcp 4881[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pystemctl status nginx[1Prt[C[C[C[C[C[C[1@tus[C[C[C[C[C[C
+[1;31m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: [1;31mfailed[0m (Result: exit-code) since Вт 2024-01-23 19:20:27 UTC; 12s ago
+  Process: 5443 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 5470 ExecStartPre=/usr/sbin/nginx -t [1;31m(code=exited, status=1/FAILURE)[0m
+  Process: 5469 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 5445 (code=exited, status=0/SUCCESS)
+
+янв 23 19:20:27 selinux systemd[1]: Starting The nginx HTTP and reverse .....
+янв 23 19:20:27 selinux nginx[5470]: nginx: the configuration file /etc/n...k
+янв 23 19:20:27 selinux nginx[5470]: nginx: [emerg] bind() to 0.0.0.0:488...)
+янв 23 19:20:27 selinux systemd[1]: [1;39mnginx.service: control process exite...=1[0m
+янв 23 19:20:27 selinux nginx[5470]: nginx: configuration file /etc/nginx...d
+янв 23 19:20:27 selinux systemd[1]: [1;31mFailed to start The nginx HTTP and r...r.[0m
+янв 23 19:20:27 selinux systemd[1]: [1;39mUnit nginx.service entered failed state.[0m
+янв 23 19:20:27 selinux systemd[1]: [1;39mnginx.service failed.[0m
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;vagrant@selinux:~[vagrant@selinux ~]$ exit
+exit
+
+Script done on Вт 23 янв 2024 19:20:42
