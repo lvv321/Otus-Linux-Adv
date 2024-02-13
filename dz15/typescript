@@ -1,0 +1,117 @@
+Script started on 2024-02-13 23:14:33+03:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="80" LINES="24"]
+[?2004h]0;vlog@smk0008-ub: ~/Desktop/LinuxAdv-Otus/dz15[01;32mvlog@smk0008-ub[00m:[01;34m~/Desktop/LinuxAdv-Otus/dz15[00m$ ssh reguser@192.168.57.10admuser@192.168.57.10reguser@192.168.57.10
+[?2004lreguser@192.168.57.10's password: 
+Permission denied, please try again.
+reguser@192.168.57.10's password: 
+
+[?2004h]0;vlog@smk0008-ub: ~/Desktop/LinuxAdv-Otus/dz15[01;32mvlog@smk0008-ub[00m:[01;34m~/Desktop/LinuxAdv-Otus/dz15[00m$ ssh reguser@192.168.57.10admuser@192.168.57.10
+[?2004ladmuser@192.168.57.10's password: 
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-37-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Feb 17 01:00:40 AM UTC 2024
+
+  System load:  0.63720703125     Processes:               110
+  Usage of /:   36.6% of 9.75GB   Users logged in:         0
+  Memory usage: 11%               IPv4 address for enp0s3: 10.0.2.15
+  Swap usage:   0%                IPv4 address for enp0s8: 192.168.57.10
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+Last login: Sat Feb 17 01:00:41 2024 from 192.168.57.1
+Could not chdir to home directory /home/admuser: No such file or directory
+$ sudo date 01  13  02130100.00^[[D^[[D^[[D               2024.00
+[sudo] password for admuser: 
+Tue Feb 13 01:00:00 UTC 2024
+$ exit
+Connection to 192.168.57.10 closed.
+[?2004h]0;vlog@smk0008-ub: ~/Desktop/LinuxAdv-Otus/dz15[01;32mvlog@smk0008-ub[00m:[01;34m~/Desktop/LinuxAdv-Otus/dz15[00m$ ssh admuser@192.168.57.10reguser@192.168.57.10
+[?2004lreguser@192.168.57.10's password: 
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-37-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Feb 17 01:00:40 AM UTC 2024
+
+  System load:  0.63720703125     Processes:               110
+  Usage of /:   36.6% of 9.75GB   Users logged in:         0
+  Memory usage: 11%               IPv4 address for enp0s3: 10.0.2.15
+  Swap usage:   0%                IPv4 address for enp0s8: 192.168.57.10
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+Could not chdir to home directory /home/reguser: No such file or directory
+$ exit
+Connection to 192.168.57.10 closed.
+[?2004h]0;vlog@smk0008-ub: ~/Desktop/LinuxAdv-Otus/dz15[01;32mvlog@smk0008-ub[00m:[01;34m~/Desktop/LinuxAdv-Otus/dz15[00m$ ssh reguser@192.168.57.10admuser@192.168.57.10
+[?2004ladmuser@192.168.57.10's password: 
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-37-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Feb 17 01:00:40 AM UTC 2024
+
+  System load:  0.63720703125     Processes:               110
+  Usage of /:   36.6% of 9.75GB   Users logged in:         0
+  Memory usage: 11%               IPv4 address for enp0s3: 10.0.2.15
+  Swap usage:   0%                IPv4 address for enp0s8: 192.168.57.10
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+Last login: Sat Feb 17 01:01:22 2024 from 192.168.57.1
+Could not chdir to home directory /home/admuser: No such file or directory
+$ exit
+Connection to 192.168.57.10 closed.
+[?2004h]0;vlog@smk0008-ub: ~/Desktop/LinuxAdv-Otus/dz15[01;32mvlog@smk0008-ub[00m:[01;34m~/Desktop/LinuxAdv-Otus/dz15[00m$ r[Kexit
+[?2004lexit
+
+Script done on 2024-02-13 23:15:58+03:00 [COMMAND_EXIT_CODE="0"]
