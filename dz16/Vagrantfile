@@ -1,0 +1,40 @@
+MACHINES = {
+  :"web" => {
+    :box_name => "lvv321/Ubuntu22.4",
+    :box_version => "1.1",
+    :cpus => 2,
+    :ip => "192.168.56.11",
+    :memory => 2048,
+    :script => "./web_config.sh"
+  },
+  :"log" => {
+    :box_name => "lvv321/Ubuntu22.4",
+    :box_version => "1.1",
+    :cpus => 2,
+    :ip => "192.168.56.12",
+    :memory => 2048,
+    :script => "./log_config.sh"
+  }
+}
+
+Vagrant.configure("2") do |config|
+  MACHINES.each do |boxname, boxconfig|
+    config.vbguest.auto_update = false
+    config.vm.define boxname do |box|
+      box.vm.box = boxconfig[:box_name]
+      box.vm.box_version = boxconfig[:box_version]
+      box.vm.hostname = boxname.to_s
+      box.vm.network "private_network", ip: boxconfig[:ip], name: "vboxnet0"
+      box.vm.provider "virtualbox" do |v|
+        v.check_guest_additions = false
+        v.cpus = boxconfig[:cpus]
+        v.customize ["modifyvm", :id, "--nested-paging", "on"]
+        v.customize ["modifyvm", :id, "--paravirt-provider", "hyperv"]
+        v.memory = boxconfig[:memory]
+        v.name = boxname.to_s
+      end
+      box.vm.provision "shell", path: boxconfig[:script]
+    end
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+  end
+end
