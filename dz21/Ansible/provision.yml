@@ -1,0 +1,73 @@
+---
+- name: setup OSPF
+  hosts: all
+  become: yes
+  
+  vars_files:
+    - defaults/main.yml
+  
+  tasks:
+    - name: setup forward packages
+      sysctl:
+        name: net.ipv4.conf.all.forwarding
+        value: '1'
+        state: present
+
+    - name: allow asynchronous routing
+      sysctl:
+        name: net.ipv4.conf.all.rp_filter
+        value: '0'
+        state: present
+    
+    - name: install base soft
+      apt:
+        name:
+          - traceroute
+          - tcpdump
+          - net-tools
+        state: present
+        update_cache: true
+
+    - name: disable ufw service
+      service:
+        name: ufw
+        state: stopped
+        enabled: false
+
+    - name: disable default route
+      template: 
+        src: 00-installer-config.yaml
+        dest: /etc/netplan/00-installer-config.yaml
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: install FRR packages
+      apt:
+        name: 
+          - frr
+          - frr-pythontools
+        state: present
+        update_cache: true
+
+    - name: base setup OSPF 
+      template:
+        src: daemons
+        dest: /etc/frr/daemons
+        owner: frr
+        group: frr
+        mode: 0640
+
+    - name: setup OSPF 
+      template:
+        src: frr_{{ansible_hostname}}.conf
+        dest: /etc/frr/frr.conf
+        owner: frr
+        group: frr
+        mode: 0640
+
+    - name: restart FRR
+      service:
+        name: frr
+        state: restarted
+        enabled: true
