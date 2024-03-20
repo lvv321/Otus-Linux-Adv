@@ -1,0 +1,98 @@
+---
+- name: setup RAS
+  hosts: all
+  become: yes
+  
+  vars_files:
+    - defaults/main.yml
+  
+  tasks:
+    - name: install soft
+      apt:
+        name:
+          - openvpn
+          - easy-rsa
+        state: present
+        update_cache: true
+
+    - name: init PKI
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa init-pki
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki
+
+    - name: build CA keys
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa --batch --req-cn=myca build-ca nopass
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/ca.crt   
+
+    - name: build DH key
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa gen-dh
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/dh.pem
+
+    - name: generate the server cert req and key
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa --batch --req-cn=rasvpn gen-req server nopass
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/private/server.key
+   
+    - name: create the server certificate 
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa --batch --req-cn=server sign-req server server
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/issued/server.crt
+   
+    - name: generate the client cert req and key
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa --batch --req-cn=client gen-req client nopass
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/private/client.key
+   
+    - name: create the client certificate 
+      command:
+        cmd: /usr/share/easy-rsa/easyrsa --batch --req-cn=client sign-req client client
+        chdir: /etc/openvpn
+        creates: /etc/openvpn/pki/issued/client.crt
+
+    - name: fetch the ca.crt
+      fetch:
+        src: /etc/openvpn/pki/ca.crt
+        dest: client/ca.crt
+        flat: yes
+
+    - name: fetch the client.crt
+      fetch:
+        src: /etc/openvpn/pki/issued/client.crt
+        dest: client/client.crt
+        flat: yes
+
+    - name: fetch the client.key
+      fetch:
+        src: /etc/openvpn/pki/private/client.key
+        dest: client/client.key
+        flat: yes
+
+    - name: create openvpn config
+      template:
+        src: server.conf
+        dest: /etc/openvpn/server.conf
+        owner: root
+        group: root
+        mode: 0640
+
+    - name: create service unit
+      template:
+        src: openvpn@.service
+        dest: /etc/systemd/system/openvpn@.service
+        owner: root
+        group: root
+        mode: 0640
+
+    - name: start openvpn@server
+      service:
+        name: openvpn@server
+        state: started
+        enabled: true
