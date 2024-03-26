@@ -1,0 +1,44 @@
+---
+- name: setup lab
+  hosts: all
+  become: yes
+  tasks:
+    - name: install soft
+      apt:
+        name:
+          - traceroute
+          - net-tools
+        state: present
+        update_cache: true
+
+- name: setup vlan
+  hosts: testClient1,testServer1,testClient2,testServer2
+  become: yes
+  tasks:
+  - name: setup vlan
+    template:
+      src: 50-vlan-config.yaml.j2
+      dest: /etc/netplan/50-vlan-config.yaml
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: apply vlan
+    shell: netplan apply
+    become: true
+
+- name: setup bond0
+  hosts: inetRouter,centralRouter
+  become: yes
+  tasks:
+  - name: setup bond0
+    template:
+      src: 50-bonding-config.yaml.j2
+      dest: /etc/netplan/50-bonding-config.yaml
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: restart hosts for bond0
+    reboot:
+      reboot_timeout: 3600
