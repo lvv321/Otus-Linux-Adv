@@ -1,0 +1,3 @@
+[hosts]
+server.mylab.local ansible_host=192.168.56.10 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/server.mylab.local/virtualbox/private_key 
+client.mylab.local ansible_host=192.168.56.20 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/client.mylab.local/virtualbox/private_key 

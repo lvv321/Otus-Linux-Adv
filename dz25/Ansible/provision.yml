@@ -1,0 +1,83 @@
+---
+- name: setup LDAP lab
+  hosts: all
+  become: yes
+  
+  vars_files:
+    - defaults/main.yml
+  
+  tasks:
+    - name: install common soft
+      yum:
+        name:
+          - vim
+          - chrony
+        state: present
+ 
+    - name: disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: disable SElinux
+      selinux:
+        state: disabled
+
+    - name: disable SElinux before reboot
+      shell: setenforce 0
+  
+    - name: set timezone
+      timezone:
+        name: "Europe/Moscow"
+  
+    - name: enable chrony
+      service:
+        name: chronyd
+        state: restarted
+        enabled: true
+
+    - name: change /etc/hosts
+      template:
+        src: hosts.j2
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: 0644
+
+- name: configure server
+  hosts: "server.mylab.local"
+  become: yes
+  tasks:
+    - name: install soft
+      yum:
+        name:
+          - "@idm:DL1"
+          - ipa-server
+        state: present
+
+    - name: enable ipv6
+      sysctl:
+        name: net.ipv6.conf.lo.disable_ipv6
+        value: '0'
+        state: present
+
+    - name: deploy ipa server
+      shell:
+        cmd: echo -e "no\nyes" | ipa-server-install --domain=mylab.local --realm=MYLAB.LOCAL --hostname=server.mylab.local --no-ntp --netbios-name=MYLAB --ds-password=qweQWE123 --admin-password=qweQWE123
+        creates: /var/log/ipaserver-install.log
+
+- name: configure client
+  hosts: "client.mylab.local"
+  become: yes
+  tasks:
+    - name: install soft
+      yum:
+        name:
+          - freeipa-client
+        state: present
+
+    - name: join client to the ipa realm
+      shell:
+        cmd: echo -e "yes\nyes" | ipa-client-install --mkhomedir --domain=mylab.local --server=server.mylab.local --no-ntp --password=admin --password=qweQWE123
+        creates: /var/log/ipaclient-install.log
