@@ -1,0 +1,6 @@
+repuser_password: 'qweQWE123'
+master_ip: '192.168.56.10'
+slave_ip: '192.168.56.11'
+barman_ip: '192.168.56.12'
+barman_user: 'barman'
+barman_user_password: 'qweQWE123!'
