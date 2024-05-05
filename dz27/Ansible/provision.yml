@@ -1,0 +1,55 @@
+---
+- name: setup Web lab
+  hosts: web
+  become: yes
+  
+  vars_files:
+    - defaults/main.yml
+  
+  tasks:
+    - name: install prerequisites
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+        state: present
+        update_cache: true
+ 
+    - name: setup docker's apt repository
+      block:
+        - name: get key
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/ubuntu/gpg
+            dest: /etc/apt/keyrings/docker.asc
+
+        - name: add the repo to apt sources
+          ansible.builtin.apt_repository:
+            repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+            state: present
+
+    - name: install docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - docker-compose-plugin
+        state: present
+        update_cache: true
+  
+    - name: Add remote "vagrant" user to "docker" group
+      ansible.builtin.user:
+        name: vagrant
+        group: "docker"
+        append: yes
+
+    - name: copy project
+      ansible.builtin.copy:
+        src: project
+        dest: /home/vagrant
+    
+    - name: reset ssh connection
+      ansible.builtin.meta: reset_connection
+    
+    - name: run container
+      ansible.builtin.shell:
+        cmd: "docker compose -f compose.yml up -d"
+        chdir: /home/vagrant/project
