@@ -1,0 +1,136 @@
+---
+- name: Install percona
+  hosts: node1, node2
+  become: yes
+  
+  vars_files:
+    - defaults/main.yml
+  
+  tasks:
+    - name: Setup percona repo
+      block:
+        - name: Install repo
+          ansible.builtin.apt:
+            deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+
+        - name: Update packages
+          ansible.builtin.apt:
+            update_cache: yes 
+    
+    - name: Setup specific percona server repo
+      ansible.builtin.command:
+        cmd: percona-release setup ps80
+        creates: /etc/apt/sources.list.d/percona-ps-80-release.list
+
+    - name: Install percona server package
+      ansible.builtin.apt:
+        name: percona-server-server
+        update_cache: yes
+      
+    - name: Copy config files
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /etc/mysql/mysql.conf.d/
+        force: false
+      with_fileglob:
+        - templates/conf.d/*
+
+    - name: Copy 01-base.cnf
+      ansible.builtin.template:
+        src: 01-base.cnf.j2
+        dest: /etc/mysql/mysql.conf.d/01-base.cnf
+
+    - name: Copy 05-binlog.cnf
+      ansible.builtin.template:
+        src: 05-binlog.cnf.j2
+        dest: /etc/mysql/mysql.conf.d/05-binlog.cnf
+
+    - name: Restart mysql
+      ansible.builtin.service: 
+        name: mysql
+        state: restarted
+
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name: python3-pymysql
+        update_cache: yes
+
+    - name: Create test database
+      block:
+        - name: Copy DB dump
+          ansible.builtin.template:
+            src: bet.dmp
+            dest: /tmp/bet.dmp
+
+        - name: Create DB
+          community.mysql.mysql_db:
+            name: my_tst_db
+            state: present
+            login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+        - name: Restore DB
+          community.mysql.mysql_db:
+            name: my_tst_db
+            state: import
+            target: /tmp/bet.dmp
+            login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node1")
+
+    - name: Create repuser
+      community.mysql.mysql_user:
+        name: "{{ repuser }}"
+        password: "{{ repuserpass }}"
+        host: "%"
+        priv: "*.*:REPLICATION SLAVE"
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node1")
+
+    - name: Dump database
+      community.mysql.mysql_db:
+        name: all
+        target: /tmp/dump.sql
+        master_data: 1
+        state: dump
+        dump_extra_args: --ignore-table=my_tst_db.events_on_demand --ignore-table=my_tst_db.v_same_event
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node1")
+
+    - name: Fetch the database dump from master to tmp folder
+      run_once: yes
+      fetch:
+        src: /tmp/dump.sql
+        dest: buffer/dump.sql
+        flat: yes
+      when: (ansible_hostname == "node1")
+
+    - name: Copy the database dump from tmp foler to slave
+      copy:
+        src: buffer/dump.sql
+        dest: /tmp/dump.sql
+      when: (ansible_hostname == "node2")
+
+    - name: Import database dump
+      community.mysql.mysql_db:
+        name: all
+        target: /tmp/dump.sql
+        state: import
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node2")
+    
+    - name: Replication config
+      community.mysql.mysql_replication:
+        mode: changemaster
+        master_host: 192.168.56.10
+        master_port: 3306
+        master_user: "{{ repuser }}"
+        master_password: "{{ repuserpass }}"
+        master_auto_position: true
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node2")
+
+    - name: Replication config
+      community.mysql.mysql_replication:
+        mode: startslave
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      when: (ansible_hostname == "node2")
